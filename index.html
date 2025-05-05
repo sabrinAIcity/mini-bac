@@ -89,7 +89,7 @@
 
     function genererPartie() {
       const result = [];
-      result.push("Autre : " + tirageAleatoire(categories["Autre"], 2));
+      result.push(...tirageAleatoire(categories["Autre"], 2).map(cat => "Autre : " + cat));
       result.push("Culture : " + tirageAleatoire(categories["Culture"], 1));
       result.push(...tirageAleatoire(categories["Divertissement"], 3).map(cat => "Divertissement : " + cat));
       result.push("Géographie : " + tirageAleatoire(categories["Géographie"], 1));
