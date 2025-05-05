@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Générateur de Mini-Bac</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Fredoka', sans-serif;
+      padding: 2rem;
+      background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+      color: #333;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      text-align: center;
+      color: #222;
+    }
+    button {
+      display: block;
+      margin: 2rem auto;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      background: #ff7e5f;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.05);
+    }
+    .result {
+      margin-top: 1rem;
+      background: #fff8f1;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    h2 {
+      margin-top: 1rem;
+      color: #444;
+    }
+    .letters {
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 0.2rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎲 Générateur de Mini-Bac 🎓</h1>
+  <button onclick="genererPartie()">🎯 Tirer une partie</button>
+  <div class="result" id="resultat"></div>
+
+  <script>
+    const categories = {
+      "Autre": ["Épices", "Fromages", "Marques alimentaires", "Marques de voiture", "Marques de mode", "Ustensiles de cuisine", "Métiers du spectacle", "Métiers de la santé", "Transports", "Desserts et pâtisserie", "Plats cuisinés", "Boissons", "Jeux ou jouets", "Vêtements et accessoires", "Marques beauté et parfum", "Meubles"],
+      "Culture": ["Livres français", "Livres étrangers", "Auteurs français", "Auteurs étrangers", "Peintre", "Sculpteur", "Politicien", "Pierres précieuses", "Instruments", "Danses", "Langues"],
+      "Divertissement": ["Acteurs français", "Acteurs étrangers", "Actrices français", "Actrices étrangères", "Films français", "Films étrangers", "Séries françaises", "Séries étrangères", "Chansons françaises", "Chansons étrangères", "Chanteurs français", "Chanteurs étrangers", "Chanteuses françaises", "Chanteuses étrangères", "Groupe de musique", "Émission TV", "Animateur français", "Animatrice française", "Humoriste homme", "Humoriste femme", "Journal / Magazine", "Sport", "Sportif.ves  français.es", "Sportif.ves étranger.es", "Candidats de la Star Ac'", "Candidats des Traîtres", "Films animés", "Candidats de LOL", "Comédies musicales"],
+      "Géographie": ["Pays", "Pays non-européens", "Villes françaises", "Villes européennes (hors FR)", "Villes américaines", "Villes asiatiques", "Villes africaines", "Villes de bord de mer", "Départements français", "Capitales du monde", "Monuments", "Rivières et fleuves", "États (américains)"],
+      "Nature": ["Maladies", "Organes", "Flore", "Animaux", "Poissons", "Oiseaux", "Chiens", "Insectes", "Arbres", "Fruits", "Légumes"]
+    };
+
+    const lettresPossibles = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "l", "m", "n", "o", "p", "r", "s", "t", "u", "v"];
+
+    function tirageAleatoire(arr, count) {
+      let copie = [...arr];
+      let resultat = [];
+      for (let i = 0; i < count; i++) {
+        const index = Math.floor(Math.random() * copie.length);
+        resultat.push(copie.splice(index, 1)[0]);
+      }
+      return resultat;
+    }
+
+    function genererPartie() {
+      const result = [];
+      result.push("Autre : " + tirageAleatoire(categories["Autre"], 1));
+      result.push("Culture : " + tirageAleatoire(categories["Culture"], 1));
+      result.push(...tirageAleatoire(categories["Divertissement"], 3).map(cat => "Divertissement : " + cat));
+      result.push("Géographie : " + tirageAleatoire(categories["Géographie"], 1));
+      result.push("Nature : " + tirageAleatoire(categories["Nature"], 1));
+
+      const lettres = tirageAleatoire(lettresPossibles, 11);
+
+      document.getElementById("resultat").innerHTML = `
+        <h2>Catégories :</h2>
+        <ul>${result.map(cat => `<li>${cat}</li>`).join('')}</ul>
+        <h2>Lettres :</h2>
+        <div class="letters">${lettres.join(' - ').toUpperCase()}</div>
+      `;
+    }
+  </script>
+</body>
+</html>
