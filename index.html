@@ -90,10 +90,10 @@
     function genererPartie() {
       const result = [];
       result.push(...tirageAleatoire(categories["Autre"], 2).map(cat => "Autre : " + cat));
-      result.push("Culture : " + tirageAleatoire(categories["Culture"], 1));
+      result.push("Culture : " + tirageAleatoire(categories["Culture"], 1)[0]);
       result.push(...tirageAleatoire(categories["Divertissement"], 3).map(cat => "Divertissement : " + cat));
-      result.push("Géographie : " + tirageAleatoire(categories["Géographie"], 1));
-      result.push("Nature : " + tirageAleatoire(categories["Nature"], 1));
+      result.push("Géographie : " + tirageAleatoire(categories["Géographie"], 1)[0]);
+      result.push("Nature : " + tirageAleatoire(categories["Nature"], 1)[0]);
 
       const lettres = tirageAleatoire(lettresPossibles, 11);
 
